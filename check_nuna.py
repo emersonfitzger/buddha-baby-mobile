@@ -1,9 +1,3 @@
-on:
-  schedule:
-    - cron: "*/15 * * * *"
-  workflow_dispatch:
-  repository_dispatch:
-    types: [stock-check]
 #!/usr/bin/env python3
 import os, re, sys, requests
 
