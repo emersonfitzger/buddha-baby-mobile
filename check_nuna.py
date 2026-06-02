@@ -9,8 +9,13 @@ HEADERS = {
 }
 
 def main():
-    r = requests.get(URL, headers=HEADERS, timeout=30)
-    r.raise_for_status()
+    try:
+        r = requests.get(URL, headers=HEADERS, timeout=30)
+        r.raise_for_status()
+    except requests.RequestException as e:
+        print(f"Skipping this check - Nuna site issue: {e}")
+        return
+
     html = r.text.lower()
     meta = re.search(r'product:availability"\s+content="([^"]+)"', html)
     availability = meta.group(1) if meta else None
@@ -35,3 +40,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
